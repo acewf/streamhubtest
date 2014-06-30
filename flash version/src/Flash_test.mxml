@@ -3,7 +3,7 @@
 			   xmlns:s="library://ns.adobe.com/flex/spark" 
 			   xmlns:mx="library://ns.adobe.com/flex/mx"
 			   initialize="initializeHandler()"
-			   resize="application1_resizeHandler(event)"
+			   resize="application1_resizeHandler(event)" width="100%" height="100%"
 			   backgroundColor="#fff000"
 			   addedToStage="addedToStageHandler()">
 	<fx:Declarations>
@@ -12,15 +12,14 @@
 	<fx:Script>
 		<![CDATA[ 
 			import mx.events.ResizeEvent;
-			import flash.events.*
 			private var listOfVideos:Array = new Array("http://www.fullimpactwebdesign.com/solutions/websiteDevelopment/videoGalleryWebsites/files/bobDylanTangledUpInBlue.flv");
-			private var aplic:App 
+			private var aplic:App
+			public var mcVideoControls:VideoControls
 			/**
 			* Initialize component.
 			*/
 			private function initializeHandler():void {
-				trace("inicia");
-				//stage.addChild(childvideo);
+				trace("init@Flash_test mxml");
 			}
 			
 			/**
@@ -28,10 +27,11 @@
 			*/
 			private function addedToStageHandler():void {
 				trace("ADDED TO STAGE")
-				aplic = new App(listOfVideos[0]);
+				mcVideoControls = new VideoControls();
+				aplic = new App(listOfVideos[0],mcVideoControls);
 				var childvideo:Sprite = aplic.getVideoPlayer();
 				stage.addChild(childvideo);
-				trace(stage.stageWidth);
+				stage.addChild(mcVideoControls);
 			}
 		
 			protected function application1_resizeHandler(event:ResizeEvent):void

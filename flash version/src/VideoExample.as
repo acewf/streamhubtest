@@ -10,8 +10,9 @@ package {
 	public class VideoExample extends Sprite {
 		private var videoURL:String = "http://www.helpexamples.com/flash/video/water.flv";
 		private var connection:NetConnection;
-		private var stream:NetStream;
+		public var stream:NetStream;
 		private var videoPlayer:Video
+		public var duration:Number = 0;
 		
 		public function VideoExample(videoPath:String) {
 			videoURL =  videoPath;
@@ -35,13 +36,12 @@ package {
 			stream = new NetStream(connection);
 			stream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			stream.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
-			stream.client={onMetaData:function(obj:Object):void{} };
+			stream.client={onMetaData:function(obj:Object):void{duration= obj.duration;} };
 			var video:Video = new Video();
 			video.attachNetStream(stream);
 			stream.play(videoURL);
 			addChild(video);
 			videoPlayer = video;
-			
 		}
 		
 		private function securityErrorHandler(event:SecurityErrorEvent):void {
