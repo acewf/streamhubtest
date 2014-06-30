@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   initialize="initializeHandler()"
+			   resize="application1_resizeHandler(event)"
+			   backgroundColor="#fff000"
+			   addedToStage="addedToStageHandler()">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[ 
+			import mx.events.ResizeEvent;
+			import flash.events.*
+			private var listOfVideos:Array = new Array("http://www.fullimpactwebdesign.com/solutions/websiteDevelopment/videoGalleryWebsites/files/bobDylanTangledUpInBlue.flv");
+			private var aplic:App 
+			/**
+			* Initialize component.
+			*/
+			private function initializeHandler():void {
+				trace("inicia");
+				//stage.addChild(childvideo);
+			}
+			
+			/**
+			* Handles the 'addedToStage' event.
+			*/
+			private function addedToStageHandler():void {
+				trace("ADDED TO STAGE")
+				aplic = new App(listOfVideos[0]);
+				var childvideo:Sprite = aplic.getVideoPlayer();
+				stage.addChild(childvideo);
+				trace(stage.stageWidth);
+			}
+		
+			protected function application1_resizeHandler(event:ResizeEvent):void
+			{
+				// TODO Auto-generated method stub
+				if(aplic!=null){
+					var childvideo:Sprite = aplic.getVideoPlayer();
+					childvideo.dispatchEvent(event);
+				}
+			}
+			
+		]]>
+	</fx:Script>
+</s:Application>
